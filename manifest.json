@@ -1,6 +1,6 @@
 {
-"name": "GTL Space Utilization",
-"short_name": "GTL Space Utilization"
+  "name": "GTL Space Utilization",
+  "short_name": "GTL Space",
   "description": "GTL Warehouse Area Utilization Dashboard",
   "start_url": "./",
   "scope": "./",
