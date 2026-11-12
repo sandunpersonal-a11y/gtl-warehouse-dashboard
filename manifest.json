@@ -1,6 +1,6 @@
 {
-  "name": "GTL Global Park Warehouse Dashboard",
-  "short_name": "GTL Global Park",
+"name": "GTL Space Utilization",
+"short_name": "GTL Space Utilization"
   "description": "GTL Warehouse Area Utilization Dashboard",
   "start_url": "./",
   "scope": "./",
