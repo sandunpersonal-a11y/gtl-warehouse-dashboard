@@ -2189,7 +2189,7 @@ function gtlPlayAreaAnimation(root) {
   });
   const bars = [...root.querySelectorAll('.track .fill')].map(el=>({el,target:parseFloat(el.style.width)||0}));
   const format=(n,decimals)=>n.toLocaleString('en-US',{minimumFractionDigits:decimals,maximumFractionDigits:decimals});
-  const duration=1500, start=performance.now();
+  const duration=700, start=performance.now();
   function tick(now) {
     const t=Math.min(1,(now-start)/duration), ease=1-Math.pow(1-t,3);
     counters.forEach(c=>{
