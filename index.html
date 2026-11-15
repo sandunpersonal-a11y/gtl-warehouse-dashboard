@@ -1554,12 +1554,36 @@ function destroyCharts() {
    KPI VALUES
 ======================================== */
 
+// 400ms number-count animation for Overview KPI cards only.
+let gtlKpiCountFrame = null;
 function renderKPIs(data) {
-  $("kTotal").textContent=fmt(sum(data,"total"));
-  $("kNon").textContent=fmt(sum(data,"non"));
-  $("kRented").textContent=fmt(sum(data,"rented"));
-  $("kUsed").textContent=fmt(sum(data,"used"));
-  $("kBalance").textContent=fmt(sum(data,"balance"));
+  const values = [
+    ["kTotal",sum(data,"total")],
+    ["kNon",sum(data,"non")],
+    ["kRented",sum(data,"rented")],
+    ["kUsed",sum(data,"used")],
+    ["kBalance",sum(data,"balance")]
+  ];
+  if (gtlKpiCountFrame !== null) {
+    cancelAnimationFrame(gtlKpiCountFrame);
+    gtlKpiCountFrame = null;
+  }
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    values.forEach(([id,value]) => { $(id).textContent = fmt(value); });
+    return;
+  }
+  const duration = 400;
+  let startTime = null;
+  values.forEach(([id]) => { $(id).textContent = "0"; });
+  function tick(now) {
+    if (startTime === null) startTime = now;
+    const progress = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    values.forEach(([id,value]) => { $(id).textContent = fmt(progress === 1 ? value : value * eased); });
+    if (progress < 1) gtlKpiCountFrame = requestAnimationFrame(tick);
+    else gtlKpiCountFrame = null;
+  }
+  gtlKpiCountFrame = requestAnimationFrame(tick);
 }
 
 
